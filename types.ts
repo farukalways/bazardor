@@ -33,3 +33,11 @@ export interface Product {
   change: PriceChange;
   markets: MarketPrice[];
 }
+
+export interface TickerProduct {
+  image: string;
+  nameBn: string;
+  today: number;
+  unit: string;
+  change?: PriceChange;
+}

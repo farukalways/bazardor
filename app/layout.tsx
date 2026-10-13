@@ -1,3 +1,5 @@
+import "./globals.css";
+
 import type { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
 import Ticker from "@/components/Ticker";
@@ -17,7 +19,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 
   return (
     <html lang="bn" data-theme="light">
-      <body className="bg-gray-50 min-h-screen flex flex-col">
+      <body className="bg-gray-50 min-h-screen flex flex-col" cz-shortcut-listen="true">
         <Navbar categories={categories} />
         <Ticker products={products} />
         <main className="flex-1">{children}</main>

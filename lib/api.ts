@@ -4,7 +4,9 @@ const BASE = process.env.API_BASE_URL;
 
 async function get<T>(path: string): Promise<T | null> {
   try {
-    const response = await fetch(`${BASE}/api/bazardor${path}`, { cache: "no-store" });
+    const response = await fetch(`${BASE}/api/bazardor${path}`, {
+      next: { revalidate: 600 }, 
+    });
     return response.ok ? (await response.json() as T) : null;
   } catch {
     return null;

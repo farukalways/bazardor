@@ -36,7 +36,7 @@ export default function Navbar({ categories }: NavbarProps) {
     `btn btn-sm rounded-full whitespace-nowrap ${active ? "btn-success text-white" : "btn-ghost"}`;
 
   return (
-    <header className="bg-base-100 border-b border-base-300 sticky top-0 z-30">
+     <header className="bg-base-100 border-b border-base-300 sticky top-0 z-30">
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
         <Link href="/" className="leading-tight">
           <span className="text-xl font-bold text-green-700">🛒 বাজার দর</span>

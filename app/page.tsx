@@ -32,7 +32,6 @@ export default async function Home() {
       .sort((a, b) => (b.change?.pct || 0) - (a.change?.pct || 0))
       .slice(0, 6);
 
-  const productLength: string = new Intl.NumberFormat('bn-BD').format(products.length);
 
 const productLengthStr = new Intl.NumberFormat('bn-BD').format(products.length);
 

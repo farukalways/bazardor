@@ -5,7 +5,7 @@ import { auth } from "@/lib/auth";
 import { getProduct } from "@/lib/api";
 import { bn, unitBn } from "@/lib/format";
 import { ChangeBadge } from "@/components/ProductCard";
-import { MarketPrice, Product } from "@/types";
+import { Product } from "@/types";
 
 
 
@@ -27,11 +27,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const min = ms.length ? Math.min(...ms.map((m) => m.min)) : p.today;
   const max = ms.length ? Math.max(...ms.map((m) => m.max)) : p.today;
   const avg = ms.length ? Math.round(ms.reduce((s, m) => s + (m.min + m.max) / 2, 0) / ms.length) : p.today;
-  
-  const groups = ms.reduce<Record<string, MarketPrice[]>>((acc, m) => {
-    (acc[m.division] ||= []).push(m);
-    return acc;
-  }, {});
+
+  const diff = p.today - p.yesterday;
+  const changeText =
+    diff > 0
+      ? `গতকালের তুলনায় আজ দাম বেড়েছে ${bn(diff)} টাকা`
+      : diff < 0
+      ? `গতকালের তুলনায় আজ দাম কমেছে ${bn(Math.abs(diff))} টাকা`
+      : "গতকালের তুলনায় আজ দাম অপরিবর্তিত আছে";
 
   const stat = (label: string, v: number) => (
     <div className="stat bg-base-100 border border-base-300 rounded-box">
@@ -48,9 +51,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <span className="text-5xl">{p.image}</span>
             <div>
               <h1 className="text-3xl font-bold">{p.nameBn}</h1>
-              <p className="text-gray-500 text-sm">
-                {p.nameBn}-এর আজকের গড় দাম {bn(p.today)} টাকা, {unitBn(p.unit)}।
-              </p>
+              <p className="text-gray-500 text-sm">{changeText}</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-2 mt-2">
@@ -76,21 +77,30 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       <section>
         <h2 className="text-2xl font-bold mb-4">বাজারভিত্তিক আজকের দাম</h2>
-        {Object.entries(groups).map(([div, list]) => (
-          <div key={div} className="mb-6">
-            <h3 className="font-semibold text-green-700 mb-2">📍 {div}</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {list.map((m) => (
-                <div key={m.market} className="card bg-base-100 border border-base-300 p-4">
-                  <p className="font-medium">{m.market}</p>
-                  <p className="text-sm text-gray-600 mt-1">
-                    সর্বনিম্ন <b className="text-green-700">{bn(m.min)}</b> — সর্বোচ্চ <b className="text-red-600">{bn(m.max)}</b> টাকা
-                  </p>
-                </div>
+        <div className="overflow-x-auto card bg-base-100 border border-base-300">
+          <table className="table table-zebra">
+            <thead>
+              <tr className="text-base">
+                <th>বাজার</th>
+                <th>বিভাগ</th>
+                <th>সর্বনিম্ন</th>
+                <th>সর্বাধিক</th>
+                <th>গড়</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ms.map((m) => (
+                <tr key={`${m.division}-${m.market}`}>
+                  <td className="font-medium">{m.market}</td>
+                  <td> {m.division}</td>
+                  <td className="text-green-700 font-semibold">{bn(m.min)} টাকা</td>
+                  <td className="text-red-600 font-semibold">{bn(m.max)} টাকা</td>
+                  <td>{bn(Math.round((m.min + m.max) / 2))} টাকা</td>
+                </tr>
               ))}
-            </div>
-          </div>
-        ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </div>
   );

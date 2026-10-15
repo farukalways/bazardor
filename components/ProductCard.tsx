@@ -14,7 +14,7 @@ export function ChangeBadge({ change }: ChangeBadgeProps) {
   const dir = change?.dir;
   const cls =
     dir === "up"
-      ? "badge-secondary"
+      ? "badge-error"
       : dir === "down"
       ? "badge-success"
       : "badge-neutral";
@@ -40,7 +40,7 @@ export default function ProductCard({ p }: ProductCardProps) {
         <div className="flex items-center justify-between mt-2">
           <div>
             <p className="text-xs text-gray-500">আজকের দাম</p>
-            <p className="font-bold text-red-600">{bn(p.today)} টাকা</p>
+            <p className="font-bold badge-neutral">{bn(p.today)} টাকা</p>
           </div>
           <ChangeBadge change={p.change} />
         </div>

@@ -68,7 +68,12 @@ export default function SignInForm() {
             অ্যাকাউন্ট নেই? <Link href="/signup" className="link link-success">সাইন আপ করুন</Link>
           </p>
         </form>
+
+        
       </div>
+        <p className="text-sm text-center mt-2">
+            <Link href="/" className="link link-ghost">হোমে ফিরে যান</Link>
+          </p>
     </div>
   );
 }

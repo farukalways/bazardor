@@ -40,15 +40,22 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           <SortSelect />
         </Suspense>
       </div>
+      <div className="space-y-6">
       {items.length === 0 ? (
         <NotFoundView text="এই ক্যাটেগরিতে কোনো পণ্য পাওয়া যায়নি।" />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {items.map((p) => (
-            <ProductCard key={p.id} p={p} />
-          ))}
+        <>
+         <p className="text-gray-500 text-sm mb-4">
+  {`মোট ${items.length.toLocaleString("bn-BD")} পণ্য দেখানো হচ্ছে`}
+</p> <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {items.map((p) => (
+              <ProductCard key={p.id} p={p} />
+            ))}
+          </div>
+        </>
+          )}
         </div>
-      )}
+      
     </div>
   );
 }

@@ -2,8 +2,6 @@ import Link from "next/link";
 import { bn, unitBn } from "@/lib/format";
 import { PriceChange, Product } from "@/types";
 
-
-
 interface ChangeBadgeProps {
   change?: PriceChange;
 }
@@ -16,10 +14,10 @@ export function ChangeBadge({ change }: ChangeBadgeProps) {
   const dir = change?.dir;
   const cls =
     dir === "up"
-      ? "badge-success"
+      ? "badge-secondary"
       : dir === "down"
-      ? "badge-error"
-      : "badge-ghost";
+      ? "badge-success"
+      : "badge-neutral";
   const sym = dir === "up" ? "▲" : dir === "down" ? "▼" : "—";
 
   return (

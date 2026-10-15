@@ -17,25 +17,29 @@ export default function SignUpForm() {
     const nameValue = f.get("name");
     const emailValue = f.get("email");
     const passwordValue = f.get("password");
+    const confirmPasswordValue = f.get("confirmPassword");
 
     const fail = (m: string) => { 
       setError(m); 
       toast.error(m); 
     };
 
-    if (!nameValue || !emailValue || !passwordValue || 
+    if (!nameValue || !emailValue || !passwordValue || !confirmPasswordValue || 
         typeof nameValue !== "string" || 
         typeof emailValue !== "string" || 
-        typeof passwordValue !== "string") {
+        typeof passwordValue !== "string" ||
+        typeof confirmPasswordValue !== "string") {
       return fail("সব ঘর পূরণ করুন");
     }
 
     const name = nameValue.trim();
     const email = emailValue.trim();
     const password = passwordValue;
+    const confirmPassword = confirmPasswordValue;
 
-    if (!name || !email || !password) return fail("সব ঘর পূরণ করুন");
+    if (!name || !email || !password || !confirmPassword) return fail("সব ঘর পূরণ করুন");
     if (password.length < 8) return fail("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে");
+    if (password !== confirmPassword) return fail("পাসওয়ার্ড দুটি মিলছে না");
     
     setLoading(true);
     setError("");
@@ -58,6 +62,7 @@ export default function SignUpForm() {
           <input name="name" placeholder="নাম" className="input input-bordered w-full" />
           <input name="email" type="email" placeholder="ইমেইল" className="input input-bordered w-full" />
           <input name="password" type="password" placeholder="পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)" className="input input-bordered w-full" />
+          <input name="confirmPassword" type="password" placeholder="পাসওয়ার্ড নিশ্চিত করুন" className="input input-bordered w-full" />
           <button disabled={loading} className="btn btn-success text-white">
             {loading ? <span className="loading loading-spinner loading-sm" /> : "রেজিস্টার"}
           </button>

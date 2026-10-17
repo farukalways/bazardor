@@ -87,7 +87,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:30001](http://localhost:30002) in your browser.
+Open [Bazerdor live ](https://bazardor-six-sooty.vercel.app) in your browser.
 
 ### Available scripts
 

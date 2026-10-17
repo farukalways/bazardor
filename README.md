@@ -78,8 +78,7 @@ Replace the example values with the URLs and connection string for your environm
 
 ```bash
 # Clone the repository
-git clone [Insert repository URL]
-cd [repository directory]
+git clone https://github.com/farukalways/bazardor.git
 
 # Install dependencies
 npm install
@@ -88,7 +87,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:30001](http://localhost:30002) in your browser.
 
 ### Available scripts
 
